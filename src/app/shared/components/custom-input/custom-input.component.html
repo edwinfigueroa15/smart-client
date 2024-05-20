@@ -1,0 +1,17 @@
+<mat-form-field class="w-full my-2">
+    <mat-label *ngIf="label">{{ label }}</mat-label>
+    <mat-icon *ngIf="icon && iconPosition == 'start'" color="primary" matPrefix>{{ icon }}</mat-icon>
+    <mat-icon *ngIf="icon && iconPosition == 'end'" color="primary" matSuffix>{{ icon }}</mat-icon>
+    <input
+        [type]="type"
+        matInput
+        [placeholder]="placeholder"
+        [formControl]="control"
+        [value]="value"
+        [autocomplete]="autocomplete"
+        (keypress)="validators($event)"
+    >
+    <mat-error *ngIf="control.hasError(getKeyError(control.errors)) && control.touched">
+        {{ errors[nameError].message }}
+    </mat-error>
+</mat-form-field>

@@ -1,0 +1,33 @@
+<div class="min-w-full min-h-screen flex">
+    <div class="w-full p-3 mt-3 mb-3 sm:mt-6 flex flex-column flex-wrap align-items-center">
+        <h2 >Bienvenidos a la aplicación</h2>
+        <img src="assets/images/auth.png" width="200" alt="logo-auth" class="my-2 sm:mb-4 border-round-2xl">
+        <form [formGroup]="form" class="flex flex-column flex-wrap w-full sm:w-9 md:w-6 lg:w-4" (ngSubmit)="onSubmit()" (keypress.enter)="onSubmit()">
+            <app-custom-input 
+                type="email"
+                label="Correo"
+                icon="email"
+                [control]="form.controls.email"
+                [errors]="errors.email">
+            </app-custom-input>
+
+            <app-custom-input
+                type="password"
+                label="Contraseña"
+                icon="lock"
+                [control]="form.controls.password"
+                [errors]="errors.password">
+            </app-custom-input>
+    
+            <button mat-fab extended type="submit" color="primary" class="mb-3" [disabled]="form.invalid">
+                <span>Iniciar</span>
+                <mat-icon fontIcon="open_in_new"></mat-icon>
+            </button>
+
+            <button mat-fab extended color="secondary" routerLink="/auth/sign-up">
+                <span class="color-primary">Registrate</span>
+                <mat-icon fontIcon="person_add" color="primary"></mat-icon>
+            </button>
+        </form>
+    </div>
+</div>
