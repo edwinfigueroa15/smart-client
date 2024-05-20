@@ -3,6 +3,7 @@ import Modules from '@/app/shared/modules';
 import { CustomInputComponent } from '@/app/shared/components';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '@/app/core/services/auth.service';
+import { IUser } from '@/app/core/interfaces/tables.interfaces';
 
 @Component({
   selector: 'app-sign-up',
@@ -13,9 +14,9 @@ import { AuthService } from '@/app/core/services/auth.service';
 })
 export default class SignUpComponent {
   form = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required]),
+    name: new FormControl('Test', [Validators.required]),
+    email: new FormControl('test@gmail.com', [Validators.required, Validators.email]),
+    password: new FormControl('123456', [Validators.required]),
   })
 
   errors = {
@@ -35,6 +36,6 @@ export default class SignUpComponent {
   constructor() { }
 
   onSubmit() {
-    this.authService.signUp(this.form.value);
+    this.authService.signUp(this.form.value as IUser);
   }
 }

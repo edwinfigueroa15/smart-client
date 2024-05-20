@@ -9,8 +9,8 @@ export class NoAuthGuard implements CanActivate {
     private utilsService = inject(UtilsService);
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree {
-        const token = localStorage.getItem('token');
-        if (token) {
+        const user = localStorage.getItem('user_token');
+        if (user) {
             this.utilsService.routerLink('/admin', { replaceUrl: true });
             return false;
         } else {

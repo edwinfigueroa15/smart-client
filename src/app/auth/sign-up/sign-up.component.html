@@ -1,8 +1,8 @@
 <div class="min-w-full min-h-screen flex">
-    <div class="w-full p-3 mt-3 mb-3 sm:mt-6 flex flex-column flex-wrap align-items-center">
+    <div class="w-full p-3 mt-3 mb-3 sm:mt-6 flex flex-col flex-wrap items-center">
         <h2>Registrate en nuestra aplicación</h2>
-        <img src="assets/images/auth.png" width="200" alt="logo-auth" class="my-2 sm:mb-4 border-round-2xl">
-        <form [formGroup]="form" class="flex flex-column flex-wrap w-full sm:w-9 md:w-6 lg:w-4" (ngSubmit)="onSubmit()" (keypress.enter)="onSubmit()">
+        <img src="assets/images/auth.png" width="200" alt="logo-auth" class="my-2 sm:mb-4 rounded-2xl">
+        <form [formGroup]="form" class="flex flex-col flex-wrap w-full sm:w-11/12 md:w-9/12 lg:w-3/6" (ngSubmit)="onSubmit()" (keypress.enter)="onSubmit()">
             <app-custom-input 
                 type="text"
                 label="Nombre"
@@ -32,7 +32,7 @@
                 <mat-icon fontIcon="open_in_new"></mat-icon>
             </button>
 
-            <button mat-fab extended color="secondary" routerLink="/auth/login">
+            <button mat-fab extended type="button" color="secondary" routerLink="/auth/login">
                 <span class="color-primary">Ya tengo una cuenta</span>
                 <mat-icon fontIcon="arrow_back" color="primary"></mat-icon>
             </button>

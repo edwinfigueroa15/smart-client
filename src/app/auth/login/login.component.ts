@@ -13,8 +13,8 @@ import { AuthService } from '@/app/core/services/auth.service';
 })
 export default class LoginComponent {
   form = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required]),
+    email: new FormControl('test@gmail.com', [Validators.required, Validators.email]),
+    password: new FormControl('123456', [Validators.required]),
   })
 
   errors = {
@@ -31,6 +31,6 @@ export default class LoginComponent {
   constructor() { }
 
   onSubmit() {
-    this.authService.login(this.form.value);
+    this.authService.login(this.form.value as any);
   }
 }
