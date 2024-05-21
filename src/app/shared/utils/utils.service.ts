@@ -20,6 +20,10 @@ export class UtilsService {
     return regex.test(value);
   }
 
+  formatDate(date: Date) {
+    return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`
+  }
+
   parseData(array: any[]) {
     return array.map(data => ({ id: data.id, value: data.name, label: data.name }))
   }

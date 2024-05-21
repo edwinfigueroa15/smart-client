@@ -37,8 +37,8 @@ export interface IBooking {
     name: string;
     phone: string;
     email: string;
-    start_date: Date;
-    end_date: Date;
+    start_date: string;
+    end_date: string;
     cancelled: boolean;
     emergency_name: string;
     emergency_phone: string;

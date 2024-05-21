@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 import { ColombiaServices } from '@/app/core/services/colombia.service';
 import { UtilsService } from '@/app/shared/utils/utils.service';
 import { ApiService } from '@/app/core/services/api.service';
-import { IHotel, IRoom } from '@/app/core/interfaces/tables.interfaces';
+import { IBooking, IHotel, IRoom } from '@/app/core/interfaces/tables.interfaces';
 import { CreateBookingComponent } from './components/create-booking/create-booking.component';
 import { DialogDataHotel } from '@/app/core/interfaces/modal.interface';
 
@@ -27,14 +27,14 @@ export default class TravelerComponent {
   listRoomsAvailable: IRoom[] = [];
   
   form = new FormGroup({
-    capacity: new FormControl(2, [Validators.required]),
-    department: new FormControl('Santander', [Validators.required]),
-    city: new FormControl('Bucaramanga', [Validators.required]),
+    capacity: new FormControl(null, [Validators.required]),
+    department: new FormControl('', [Validators.required]),
+    city: new FormControl('', [Validators.required]),
   });
 
   formDate = new FormGroup({
-    start: new FormControl(new Date(), [Validators.required]),
-    end: new FormControl(new Date(), [Validators.required]),
+    start: new FormControl(null, [Validators.required]),
+    end: new FormControl(null, [Validators.required]),
   });
 
   errors = {
@@ -74,11 +74,6 @@ export default class TravelerComponent {
   getDepartments() {
     this.allSubs[this.allSubs.length] = this._colombiaServices.getDepartments().subscribe((response: any) => {
       this.listDepartment = response;
-      this.changeDepartmentSelect({
-        "id": 28,
-        "value": "Santander",
-        "label": "Santander"
-      })
     })
   }
 
@@ -89,7 +84,7 @@ export default class TravelerComponent {
   }
 
   changeDepartmentSelect(event: any) {
-    this.form.controls['city'].setValue('Bucaramanga');
+    this.form.controls['city'].setValue('');
     if(event) {
       this.getCities(event.id);
     } else {
@@ -109,7 +104,7 @@ export default class TravelerComponent {
     }
 
     const rooms: IRoom[] = await this._apiService.getAll('rooms', 'active');
-    const filterRooms = rooms.filter(room => Number(room.capacity) >= Number(this.form.controls["capacity"].value) && room.available);
+    const filterRooms = rooms.filter(room => Number(room.capacity) >= Number(this.form.controls["capacity"].value) && room.available && room.active);
     if(!filterRooms.length) {
       this.listRoomsAvailable = [];
       this.isLoading.update(() => false);
@@ -123,14 +118,16 @@ export default class TravelerComponent {
   async createBooking(room: IRoom) {
     const data: DialogDataHotel = {
       isEdit: false,
-      info: { ...this.form.value, ...this.formDate.value, room: room, totalCost: this.totalCost(room.cost_base, room.tax) },
+      info: { ...this.form.value, ...this.formDate.value, room: room, total_cost: this.totalCost(room.cost_base, room.tax) },
     }
-    const response = await this._utilsService.openModal(CreateBookingComponent, {
+    const response: IBooking = await this._utilsService.openModal(CreateBookingComponent, {
       data: data,
     });
 
     if(response) {
       this.isLoading.update(() => true);
+      response.start_date = this._utilsService.formatDate(new Date(response.start_date));
+      response.end_date = this._utilsService.formatDate(new Date(response.start_date));
       const createSuccess = await this._apiService.create('bookings', response);
       if(createSuccess) {
         room.available = false;

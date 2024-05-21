@@ -12,11 +12,26 @@ export class ApiService {
   constructor() { }
 
   async getAll(table: string, attrActive?: string) {
-    const response = this._utilsService.getLocalStorage(table) || [];
+    const response: any[] = this._utilsService.getLocalStorage(table) || [];
+    if(!response.length) return response;
     if(attrActive) {
       return response.filter((item: any) => item[attrActive]);
     }
     return response;
+  }
+
+  async getOne(table: string, attrBase: string, value: string, attrActive?: string) {
+    const response = this._utilsService.getLocalStorage(table) || [];
+    if(!response.length) return null;
+
+    const element = response.find((item: any) => item[attrBase] === value);
+    if(!element) return null;
+
+    if(attrActive) {
+      if(element[attrActive]) return element;
+      return null;
+    }
+    return element;
   }
 
   async create(table: string, data: any) {

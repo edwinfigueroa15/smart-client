@@ -8,7 +8,7 @@
         <div><strong>Entrada:</strong> {{ form.value.start_date | date:"shortDate" }}</div>
         <div><strong>Salida:</strong> {{ form.value.start_date | date:"shortDate" }}</div>
         <div><strong>Tipo de habitación:</strong> {{ data.info.room.type }}</div>
-        <div><strong>Costo total:</strong> {{ data.info.totalCost | currency }}</div>
+        <div><strong>Costo total:</strong> {{ data.info.total_cost | currency }}</div>
     </div>
 
     <form [formGroup]="form" class="flex flex-col w-full" (keypress.enter)="onSubmit()">
@@ -37,7 +37,7 @@
             </app-custom-input>
 
             <app-custom-input 
-                type="text"
+                type="number"
                 label="Celular"
                 [control]="form.controls.phone"
                 [errors]="errors.phone">
@@ -63,7 +63,7 @@
             </app-custom-input>
 
             <app-custom-input 
-                type="text"
+                type="number"
                 label="Celular"
                 [control]="form.controls.emergency_phone"
                 [errors]="errors.emergency_phone">

@@ -6,6 +6,14 @@
     <app-spinner></app-spinner>
 }
 
+<app-custom-select 
+    label="Selecione el hotel para ver sus reservas"
+    [control]="selectForm.controls.hotel"
+    [list]="listHotels"
+    [errors]="{}"
+    (changeEvent)="changeSelectHotel($event)">
+</app-custom-select>
+
 @if(!isLoading() && dataSource.data.length) {
     <app-table
         [showActionsTable]="showActionsTable"
@@ -13,6 +21,7 @@
         [nameHeaderColumns]="nameHeaderColumns"
         [dataSource]="dataSource"
         showPaginator
+        (detailEvent)="detailItem($event)"
     >
     </app-table>
 } @else {

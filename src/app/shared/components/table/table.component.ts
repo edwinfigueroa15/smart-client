@@ -48,7 +48,7 @@ export class TableComponent  implements OnInit {
   }
 
   OnDetail() {
-    this.deleteEvent.emit(this.currenItem);
+    this.detailEvent.emit(this.currenItem);
   }
 
   OnEdit() {

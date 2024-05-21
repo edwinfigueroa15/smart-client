@@ -1,12 +1,11 @@
-import { Component, ElementRef, ViewChild, inject, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { TableComponent, SpinnerComponent, CustomSelectComponent } from '@/app/shared/components';
 import Modules from '@/app/shared/modules';
 import { MatTableDataSource } from '@angular/material/table';
-import { IHotel, IRoom, IUser } from '@/app/core/interfaces/tables.interfaces';
+import { IHotel, IRoom } from '@/app/core/interfaces/tables.interfaces';
 import { ApiService } from '@/app/core/services/api.service';
 import { AuthService } from '@/app/core/services/auth.service';
 import { UtilsService } from '@/app/shared/utils/utils.service';
-import { DialogDataHotel } from '@/app/core/interfaces/modal.interface';
 import { AddUpdateComponent } from './components/add-update/add-update.component';
 import { FormControl, FormGroup } from '@angular/forms';
 
@@ -55,7 +54,7 @@ export default class RoomComponent {
       return;
     }
   
-    const allHotels = await this._apiService.getAll('hotels', 'active');
+    const allHotels: IHotel[] = await this._apiService.getAll('hotels', 'active');
     if(!allHotels.length) {
       this.listHotels = [];
       this.isLoading.update(() => false);
