@@ -1,0 +1,23 @@
+<mat-form-field class="w-full my-2">
+    <mat-label>{{ label }}</mat-label>
+    <mat-date-range-input
+      [formGroup]="controlGroup"
+      [rangePicker]="campaignOnePicker"
+      [min]="minDate"
+    >
+        <input matStartDate placeholder="Entrada" formControlName="start">
+        <input matEndDate placeholder="Salida" formControlName="end">
+    </mat-date-range-input>
+    <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="campaignOnePicker"></mat-datepicker-toggle>
+    <mat-date-range-picker #campaignOnePicker></mat-date-range-picker>
+
+    <mat-error *ngIf="controlGroup.controls['start'].hasError(getKeyError(controlGroup.controls['start'].errors)) && controlGroup.controls['start'].touched">
+        {{ errors.start[nameError].message | json }}
+    </mat-error>
+
+    <mat-error *ngIf="controlGroup.controls['end'].hasError(getKeyError(controlGroup.controls['end'].errors)) && controlGroup.controls['end'].touched">
+        {{ errors.end[nameError].message | json }}
+    </mat-error>
+
+</mat-form-field>

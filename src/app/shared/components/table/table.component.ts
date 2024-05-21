@@ -13,12 +13,20 @@ import { MatPaginator } from '@angular/material/paginator';
 export class TableComponent  implements OnInit {
   currenItem: any = null;
 
+  @Input() showActionsTable: { edit?: boolean, delete?: boolean, detail?: boolean, status?: boolean } = {
+    edit: false,
+    status: false,
+    delete: false,
+    detail: false,
+  };
   @Input({ required: true }) keyHeaderColumns: string[] = [];
   @Input({ required: true }) nameHeaderColumns = {} as { [key: string]: string };
   @Input({ required: true }) dataSource!: MatTableDataSource<any>;
   @Input({ transform: booleanAttribute }) showPaginator: boolean = false;
 
+  @Output() detailEvent = new EventEmitter<any>();
   @Output() editEvent = new EventEmitter<any>();
+  @Output() changeStatusEvent = new EventEmitter<any>();
   @Output() deleteEvent = new EventEmitter<any>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -39,8 +47,16 @@ export class TableComponent  implements OnInit {
     this.currenItem = null;
   }
 
+  OnDetail() {
+    this.deleteEvent.emit(this.currenItem);
+  }
+
   OnEdit() {
     this.editEvent.emit(this.currenItem);
+  }
+
+  OnChangeStatus() {
+    this.changeStatusEvent.emit(this.currenItem);
   }
 
   OnDelete() {

@@ -40,6 +40,8 @@ export interface IBooking {
     start_date: Date;
     end_date: Date;
     cancelled: boolean;
+    emergency_name: string;
+    emergency_phone: string;
     id_room: string;
 }
 

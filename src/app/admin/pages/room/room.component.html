@@ -20,11 +20,13 @@
 
 @if(!isLoading() && dataSource.data.length && selectForm.controls.hotel.value) {
     <app-table
+        [showActionsTable]="showActionsTable"
         [keyHeaderColumns]="keyHeaderColumns"
         [nameHeaderColumns]="nameHeaderColumns"
         [dataSource]="dataSource"
         showPaginator
         (editEvent)="editItem($event)"
+        (changeStatusEvent)="changeStatusEvent($event)"
         (deleteEvent)="deleteItem($event)"
     >
     </app-table>

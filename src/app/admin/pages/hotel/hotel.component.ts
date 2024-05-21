@@ -1,8 +1,8 @@
-import { Component, ElementRef, ViewChild, inject, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { TableComponent, SpinnerComponent } from '@/app/shared/components';
 import Modules from '@/app/shared/modules';
 import { MatTableDataSource } from '@angular/material/table';
-import { IHotel, IUser } from '@/app/core/interfaces/tables.interfaces';
+import { IHotel, IRoom, IUser } from '@/app/core/interfaces/tables.interfaces';
 import { ApiService } from '@/app/core/services/api.service';
 import { AuthService } from '@/app/core/services/auth.service';
 import { UtilsService } from '@/app/shared/utils/utils.service';
@@ -18,7 +18,8 @@ import { DialogDataHotel } from '@/app/core/interfaces/modal.interface';
 })
 export default class HotelComponent {
   isLoading = signal<boolean>(true);
-
+  
+  showActionsTable = { edit: true, status: true, delete: true };
   nameHeaderColumns: any = {
     name: 'Nombre',
     description: 'Descripción',
@@ -29,8 +30,6 @@ export default class HotelComponent {
   };
   keyHeaderColumns: any[] = ['name', 'description', 'department', 'city', 'address', 'active', 'actions'];
   dataSource = new MatTableDataSource<IHotel>([]);
-
-  @ViewChild('contentModal') contentModal!: ElementRef;
 
   private _authService = inject(AuthService);
   private _apiService = inject(ApiService);
@@ -99,6 +98,15 @@ export default class HotelComponent {
     }
   }
 
+  async changeStatusEvent(event: any) {
+    if(event) {
+      this.isLoading.update(() => true);
+      event.active = !event.active;
+      await this._apiService.update('hotels', event)
+      await this.getHotels();
+    }
+  }
+
   async deleteItem(event: any) {
     const confrim = await this._utilsService.openModalConfirm({
       title: "Eliminar Hotel",
@@ -113,6 +121,12 @@ export default class HotelComponent {
         const user: IUser = { ...this._authService.user$.value! }
         user.hotels = user.hotels.filter(hotel => hotel.id != event.id);
         this._authService.user$.next(user);
+
+        let rooms: IRoom[] = await this._apiService.getAll('rooms') || [];
+        if(rooms.length) {
+          rooms = rooms.filter(room => room.name_hotel != event.name);
+          this._utilsService.saveLocalStorage('rooms', rooms);
+        }
         this.getHotels();
       }
     }

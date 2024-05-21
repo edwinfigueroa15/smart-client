@@ -25,6 +25,7 @@ export default class RoomComponent {
     hotel: new FormControl(''),
   })
 
+  showActionsTable = { edit: true, status: true, delete: true };
   nameHeaderColumns: any = {
     floor: 'Piso',
     num_room: 'Nº habitación',
@@ -54,7 +55,7 @@ export default class RoomComponent {
       return;
     }
   
-    const allHotels = await this._apiService.getAll('hotels');
+    const allHotels = await this._apiService.getAll('hotels', 'active');
     if(!allHotels.length) {
       this.listHotels = [];
       this.isLoading.update(() => false);
@@ -121,6 +122,15 @@ export default class RoomComponent {
         await this._apiService.update('rooms', response)
         await this.getRoomsByHotel();
       }
+    }
+  }
+
+  async changeStatusEvent(event: any) {
+    if(event) {
+      this.isLoading.update(() => true);
+      event.active = !event.active;
+      await this._apiService.update('rooms', event)
+      await this.getRoomsByHotel();
     }
   }
 

@@ -26,14 +26,33 @@
           </ng-container>
 
           <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="OnEdit()">
-              <mat-icon>edit</mat-icon>
-              <span>Editar</span>
-            </button>
-            <button mat-menu-item (click)="OnDelete()">
-              <mat-icon>delete</mat-icon>
-              <span>Eliminar</span>
-            </button>
+            @if(showActionsTable.detail) {
+              <button mat-menu-item (click)="OnDetail()">
+                <mat-icon>remove_red_eye</mat-icon>
+                <span>Ver detalle</span>
+              </button>
+            }
+
+            @if(showActionsTable.edit) {
+              <button mat-menu-item (click)="OnEdit()">
+                <mat-icon>edit</mat-icon>
+                <span>Editar</span>
+              </button>
+            }
+
+            @if(showActionsTable.status) {
+              <button mat-menu-item (click)="OnChangeStatus()">
+                <mat-icon>trip_origin</mat-icon>
+                <span>Cambiar estado</span>
+              </button>
+            }
+
+            @if(showActionsTable.delete) {
+              <button mat-menu-item (click)="OnDelete()">
+                <mat-icon>delete</mat-icon>
+                <span>Eliminar</span>
+              </button>
+            }
           </mat-menu>
 
         } @else {
