@@ -1,69 +1,98 @@
 import { Component, ElementRef, ViewChild, inject, signal } from '@angular/core';
-import { TableComponent, SpinnerComponent } from '@/app/shared/components';
+import { TableComponent, SpinnerComponent, CustomSelectComponent } from '@/app/shared/components';
 import Modules from '@/app/shared/modules';
 import { MatTableDataSource } from '@angular/material/table';
-import { IHotel, IUser } from '@/app/core/interfaces/tables.interfaces';
+import { IHotel, IRoom, IUser } from '@/app/core/interfaces/tables.interfaces';
 import { ApiService } from '@/app/core/services/api.service';
 import { AuthService } from '@/app/core/services/auth.service';
 import { UtilsService } from '@/app/shared/utils/utils.service';
 import { DialogDataHotel } from '@/app/core/interfaces/modal.interface';
 import { AddUpdateComponent } from './components/add-update/add-update.component';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-room',
   templateUrl: './room.component.html',
   styleUrl: './room.component.scss',
   standalone: true,
-  imports: [...Modules, TableComponent, SpinnerComponent],
+  imports: [...Modules, TableComponent, SpinnerComponent, CustomSelectComponent],
 })
 export default class RoomComponent {
   isLoading = signal<boolean>(true);
+  listHotels: any[] = [];
+
+  selectForm = new FormGroup({
+    hotel: new FormControl(''),
+  })
 
   nameHeaderColumns: any = {
-    name: 'Nombre',
-    description: 'Descripción',
-    department: 'Departamento',
-    city: 'Ciudad',
-    address: 'Dirección',
+    floor: 'Piso',
+    num_room: 'Nº habitación',
+    capacity: 'Capacidad',
+    cost_base: 'Costo base',
+    tax: 'Impuesto',
+    type: 'Tipo',
+    available: 'Disponible',
     active: 'Estado',
   };
-  keyHeaderColumns: any[] = ['name', 'description', 'department', 'city', 'address', 'active', 'actions'];
-  dataSource = new MatTableDataSource<IHotel>([]);
-
-  @ViewChild('contentModal') contentModal!: ElementRef;
+  keyHeaderColumns: any[] = ['floor', 'num_room', 'capacity', 'cost_base', 'tax', 'type', 'available', 'active', 'actions'];
+  dataSource = new MatTableDataSource<IRoom>([]);
 
   private _authService = inject(AuthService);
   private _apiService = inject(ApiService);
   private _utilsService = inject(UtilsService);
 
-  async ngOnInit() {
-    await this.getHotels();
+  ngOnInit() {
+    this.getHotels();
   }
 
   async getHotels() {
     const hotelsOfUser = this._authService.user$.getValue()?.hotels || [];
     if(!hotelsOfUser.length) {
-      this.dataSource.data = [];
+      this.listHotels = [];
       this.isLoading.update(() => false);
       return;
     }
   
-    const allHotels = await this._apiService.getAll('rooms');
+    const allHotels = await this._apiService.getAll('hotels');
     if(!allHotels.length) {
-      this.dataSource.data = [];
+      this.listHotels = [];
       this.isLoading.update(() => false);
       return;
     }
 
     const hotels = await this._apiService.getDataJoin(hotelsOfUser, allHotels);
-    this.dataSource.data = hotels;
+    this.listHotels = this._utilsService.parseData(hotels);
     this.isLoading.update(() => false);
   }
 
+  async getRoomsByHotel() {
+    if(!this.selectForm.controls.hotel.value) {
+      this.dataSource.data = [];
+      this.isLoading.update(() => false);
+      return;
+    }
+
+    const rooms = await this._apiService.getAll('rooms')
+    if(!rooms.length) {
+      this.dataSource.data = [];
+      this.isLoading.update(() => false);
+      return;
+    }
+
+    this.dataSource.data = rooms.filter((room: IRoom) => room.name_hotel == this.selectForm.controls.hotel.value);
+    this.isLoading.update(() => false);
+  }
+
+  changeSelectHotel(event: any) {
+    this.getRoomsByHotel();
+  }
+
   async addRoom() {
-    const data: DialogDataHotel = {
+    const data: any = {
       isEdit: false,
       info: {},
+      listHotels: this.listHotels
     }
     const response = await this._utilsService.openModal(AddUpdateComponent, {
       data: data,
@@ -72,20 +101,16 @@ export default class RoomComponent {
     if(response) {
       this.isLoading.update(() => true);
       await this._apiService.create('rooms', response)
-
-      const user: IUser = { ...this._authService.user$.value! }
-      user.hotels.push({ id: response.id });
-      this._authService.user$.next(user);
-
-      await this.getHotels();
+      await this.getRoomsByHotel();
     }
   }
 
   async editItem(event: any) {
     if(event) {
-      const data: DialogDataHotel = {
+      const data: any = {
         isEdit: true,
         info: event,
+        listHotels: this.listHotels
       }
       const response = await this._utilsService.openModal(AddUpdateComponent, {
         data: data,
@@ -94,14 +119,14 @@ export default class RoomComponent {
       if(response) {
         this.isLoading.update(() => true);
         await this._apiService.update('rooms', response)
-        await this.getHotels();
+        await this.getRoomsByHotel();
       }
     }
   }
 
   async deleteItem(event: any) {
     const confrim = await this._utilsService.openModalConfirm({
-      title: "Eliminar Hotel",
+      title: "Eliminar Habitación",
       subtitle: "Esta acción sera permanente",
       labelBtnCancel: "Cancelar",
       labelBtnSuccess: "Si, eliminar"
@@ -109,12 +134,7 @@ export default class RoomComponent {
 
     if(event && confrim) {
       const response = await this._apiService.delete('rooms', event.id);
-      if(!!response) {
-        const user: IUser = { ...this._authService.user$.value! }
-        user.hotels = user.hotels.filter(hotel => hotel.id != event.id);
-        this._authService.user$.next(user);
-        this.getHotels();
-      }
+      if(!!response) this.getRoomsByHotel();
     }
   }
 }

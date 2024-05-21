@@ -20,6 +20,10 @@ export class UtilsService {
     return regex.test(value);
   }
 
+  parseData(array: any[]) {
+    return array.map(data => ({ id: data.id, value: data.name, label: data.name }))
+  }
+
   routerLink(url: string, extras?: NavigationBehaviorOptions) {
     return this.router.navigateByUrl(url, extras);
   }

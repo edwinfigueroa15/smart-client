@@ -18,88 +18,65 @@ import { Subscription } from 'rxjs';
 export class AddUpdateComponent {
   allSubs: Subscription[] = [];
   isLoading = signal<boolean>(false);
-  listDepartment = []
-  listCities = []
+  listHotel: any[] = [];
 
   form = new FormGroup({
     id: new FormControl(''),
-    name: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-    description: new FormControl('', [Validators.required, Validators.maxLength(250)]),
-    department: new FormControl('', [Validators.required]),
-    city: new FormControl('', [Validators.required]),
-    address: new FormControl('', [Validators.required, Validators.maxLength(250)]),
+    floor: new FormControl(null, [Validators.required, Validators.minLength(1), Validators.maxLength(3)]),
+    num_room: new FormControl(null, [Validators.required, Validators.minLength(1), Validators.maxLength(3)]),
+    capacity: new FormControl(null, [Validators.required]),
+    cost_base: new FormControl(null, [Validators.required]),
+    tax: new FormControl(null, [Validators.required]),
+    type: new FormControl('', [Validators.required]),
+    available: new FormControl(true),
     active: new FormControl(true),
+    name_hotel: new FormControl('', [Validators.required]),
   })
 
   errors = {
-    name: {
-      required: { message: 'El nombre es obligatorio' },
-      maxlength: { message: 'Máximo 50 caracteres' },
+    floor: {
+      required: { message: 'El piso es obligatorio' },
+      minlength: { message: 'Minimo 1 caracter' },
+      maxlength: { message: 'Máximo 3 caracteres' },
     },
-    description: {
-      required: { message: 'La descripción es obligatoria' },
-      maxlength: { message: 'Máximo 250 caracteres' },
+    num_room: {
+      required: { message: 'El número de habitación es obligatorio' },
+      minlength: { message: 'Minimo 1 caracter' },
+      maxlength: { message: 'Máximo 3 caracteres' },
     },
-    department: {
-      required: { message: 'El departamento es obligatorio' },
+    capacity: {
+      required: { message: 'La capacidad es obligatoria' },
     },
-    city: {
-      required: { message: 'La ciudad es obligatoria' },
+    cost_base: {
+      required: { message: 'El costo base es obligatorio' },
     },
-    address: {
-      required: { message: 'La dirección es obligatoria' },
-      maxlength: { message: 'Máximo 250 caracteres' },
+    tax: {
+      required: { message: 'El impuesto es obligatorio' },
+    },
+    type: {
+      required: { message: 'El tipo de habitación es obligatorio' },
+    },
+    name_hotel: {
+      required: { message: 'El hotel es obligatorio' },
     },
   }
 
-  private _colombiaServices = inject(ColombiaServices);
   constructor(
     public dialogRef: MatDialogRef<AddUpdateComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogDataHotel,
+    @Inject(MAT_DIALOG_DATA) public data: any,
   ) { }
 
   ngOnInit() {
-    this.getDepartments();
+    if(this.data.isEdit) this.loadData();
   }
 
   ngOnDestroy() {
     this.allSubs.forEach(sub => sub.unsubscribe());
   }
 
-  getDepartments() {
-    this.allSubs[this.allSubs.length] = this._colombiaServices.getDepartments().subscribe((response: any) => {
-      this.listDepartment = response;
-      if (this.data.isEdit) {
-        this.isLoading.update(() => true);
-        this.loadData();
-      }
-    })
-  }
-
-  getCities(id: number) {
-    this.allSubs[this.allSubs.length] = this._colombiaServices.getCities(id).subscribe((response: any) => {
-      this.listCities = response;
-    })
-  }
-
-  changeDepartmentSelect(event: any) {
-    this.form.controls['city'].setValue('');
-    if(event) {
-      this.getCities(event.id);
-    } else {
-      this.listCities = [];
-    }
-  }
-
   loadData() {
     const dataForm: IHotel = { ...this.data.info }
     this.form.patchValue(dataForm);
-
-    if(dataForm.department) {
-      const departmentFound: any = this.listDepartment.find((item: any) => item.label == dataForm.department);
-      if(departmentFound) this.getCities(departmentFound.id);
-    }
-
     this.isLoading.update(() => false);
   }
 

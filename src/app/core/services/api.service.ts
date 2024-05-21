@@ -3,11 +3,6 @@ import { Injectable, inject } from '@angular/core';
 import { UtilsService } from '@/app/shared/utils/utils.service';
 import short from 'short-uuid';
 
-interface ILogin {
-  email: string;
-  password: string;
-}
-
 @Injectable({
   providedIn: 'root'
 })

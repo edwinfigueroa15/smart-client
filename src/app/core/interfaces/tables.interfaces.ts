@@ -27,7 +27,7 @@ export interface IRoom {
     type: string;
     active: boolean;
     available: boolean;
-    id_hotel: string;
+    name_hotel: string;
 }
 
 export interface IBooking {

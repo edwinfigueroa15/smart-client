@@ -8,8 +8,14 @@
             <th mat-header-cell *matHeaderCellDef>{{ nameHeaderColumns[header] }}</th>
             <td mat-cell *matCellDef="let element"> {{element[header] ? 'Activo' : 'Inactivo'}} </td>
           </ng-container>
+          
+        } @else if(header === 'available') {
+          <ng-container [matColumnDef]="header">
+            <th mat-header-cell *matHeaderCellDef>{{ nameHeaderColumns[header] }}</th>
+            <td mat-cell *matCellDef="let element"> {{element[header] ? 'Si' : 'No'}} </td>
+          </ng-container>
 
-          } @else if(header === 'actions') {
+        } @else if(header === 'actions') {
           <ng-container [matColumnDef]="header" stickyEnd>
             <th mat-header-cell *matHeaderCellDef>&nbsp;</th>
             <td mat-cell *matCellDef="let element" style="padding: 0px !important;">

@@ -10,7 +10,15 @@
     <app-spinner></app-spinner>
 }
 
-@if(!isLoading() && dataSource.data.length) {
+<app-custom-select 
+    label="Selecione el hotel para ver las habitaciones"
+    [control]="selectForm.controls.hotel"
+    [list]="listHotels"
+    [errors]="{}"
+    (changeEvent)="changeSelectHotel($event)">
+</app-custom-select>
+
+@if(!isLoading() && dataSource.data.length && selectForm.controls.hotel.value) {
     <app-table
         [keyHeaderColumns]="keyHeaderColumns"
         [nameHeaderColumns]="nameHeaderColumns"
