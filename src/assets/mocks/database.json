@@ -1,0 +1,321 @@
+{
+    "users": [
+        {
+            "name": "Usuario Uno",
+            "email": "uno@gmail.com",
+            "password": "$2a$10$a3HZN8uiXLzuQ7fLg4bTousX4DOejLR4pHP9wWruUd72OhtLi0knS",
+            "id": "fEq9XfUvZ9gcivv7ChSgRQ",
+            "active": true,
+            "hotels": [
+                {
+                  "id": "7qYdAgGSmu3ccoJL8P2i6w"
+                },
+                {
+                  "id": "ixV9vFDW8DSj1YqpSGdrDs"
+                },
+                {
+                  "id": "r2SwnC7B6wmnKYK6sMVjsa"
+                }
+            ]
+        },
+        {
+            "name": "User Dos",
+            "email": "dos@gmail.com",
+            "password": "$2a$10$a3HZN8uiXLzuQ7fLg4bTousX4DOejLR4pHP9wWruUd72OhtLi0knS",
+            "id": "jNwy57TPXBZW4CByjUB5t2",
+            "active": true,
+            "hotels": [
+                {
+                  "id": "6eW7vRNrHhX2E3ncvw1VmP"
+                },
+                {
+                  "id": "v2hcYmVXhXYAFfo4A9nrEL"
+                }
+            ]
+        }
+    ],
+    "hotels": [
+        {
+            "id": "7qYdAgGSmu3ccoJL8P2i6w",
+            "name": "Teleport Royal",
+            "description": "NH Collection Bogotá Teleport Royal",
+            "department": "Bogotá",
+            "city": "Bogotá D.C.",
+            "address": "Calle 113 Number 7-65, , Bogotá - Colombia",
+            "active": true
+        },
+        {
+            "id": "6eW7vRNrHhX2E3ncvw1VmP",
+            "name": "Avani Royal",
+            "description": "Avani Royal Zona T Bogotá Hotel",
+            "department": "Bogotá",
+            "city": "Bogotá D.C.",
+            "address": "Calle 82 No. 12-35, Chico, 110010 , Bogotá - Colombia",
+            "active": true
+        },
+        {
+            "id": "ixV9vFDW8DSj1YqpSGdrDs",
+            "name": "Pavillon Royal",
+            "description": "NH Bogotá Pavillon Royal",
+            "department": "Bogotá",
+            "city": "Bogotá D.C.",
+            "address": "Calle 94 # 11-45, , Bogotá - Colombia",
+            "active": true
+        },
+        {
+            "id": "r2SwnC7B6wmnKYK6sMVjsa",
+            "name": "Medellín Royal",
+            "description": "NH Collection Medellín Royal",
+            "department": "Antioquia",
+            "city": "Medellín",
+            "address": "Carrera 42 No 5 Sur 130, , Medellín - Colombia",
+            "active": true
+        },
+        {
+            "id": "v2hcYmVXhXYAFfo4A9nrEL",
+            "name": "Boulevard del Río",
+            "description": "NH Cali Boulevard del Río",
+            "department": "Valle del Cauca",
+            "city": "Cali",
+            "address": "Avenida 2 Norte #7-25 760045, Cali Cali - Colombia",
+            "active": true
+        }
+    ],
+    "rooms": [
+        {
+            "id": "w1cTbB77jr2qK7aqVFrWLP",
+            "floor": "1",
+            "num_room": "02",
+            "capacity": "2",
+            "cost_base": "60000",
+            "tax": "0.19",
+            "type": "Doble",
+            "available": true,
+            "active": true,
+            "name_hotel": "Boulevard del Río"
+        },
+        {
+            "id": "oGuavbh1DtDr7kqTSiK7FS",
+            "floor": "2",
+            "num_room": "04",
+            "capacity": "4",
+            "cost_base": "230000",
+            "tax": "0.19",
+            "type": "Ejecutiva",
+            "available": true,
+            "active": true,
+            "name_hotel": "Boulevard del Río"
+        },
+
+        {
+            "id": "iZJ8CuzoGYdnnC96qN8P6G",
+            "floor": "5",
+            "num_room": "07",
+            "capacity": "2",
+            "cost_base": "150000",
+            "tax": "0.19",
+            "type": "Suite",
+            "available": true,
+            "active": true,
+            "name_hotel": "Medellín Royal"
+        },
+        {
+            "id": "bpH4cUZf9v8QXBSjpBSTNq",
+            "floor": "1",
+            "num_room": "03",
+            "capacity": "1",
+            "cost_base": "30000",
+            "tax": "0.19",
+            "type": "Individual",
+            "available": true,
+            "active": true,
+            "name_hotel": "Medellín Royal"
+        },
+        {
+            "id": "55uANWq1GWEjeiyPegvnF5",
+            "floor": "1",
+            "num_room": "01",
+            "capacity": "1",
+            "cost_base": "50000",
+            "tax": "0.19",
+            "type": "Individual",
+            "available": true,
+            "active": true,
+            "name_hotel": "Teleport Royal"
+        },
+        {
+            "id": "kpLdkXt8uK2ZvpMvai1sCB",
+            "floor": "1",
+            "num_room": "02",
+            "capacity": "2",
+            "cost_base": "70000",
+            "tax": "0.19",
+            "type": "Doble",
+            "available": true,
+            "active": true,
+            "name_hotel": "Teleport Royal"
+        },
+        {
+            "id": "pS6qiN3nARGn6bYnDpYT7m",
+            "floor": "2",
+            "num_room": "04",
+            "capacity": "6",
+            "cost_base": "170000",
+            "tax": "0.19",
+            "type": "Ejecutiva",
+            "available": true,
+            "active": true,
+            "name_hotel": "Teleport Royal"
+        },
+        {
+            "id": "k89etP7aZr2Xg6LiRNbm8c",
+            "floor": "5",
+            "num_room": "07",
+            "capacity": "2",
+            "cost_base": "300000",
+            "tax": "0.19",
+            "type": "Suite",
+            "available": true,
+            "active": true,
+            "name_hotel": "Teleport Royal"
+        },
+        {
+            "id": "hw3Ym7eJNPpKJciFZxF8zM",
+            "floor": "1",
+            "num_room": "03",
+            "capacity": "1",
+            "cost_base": "50000",
+            "tax": "0.19",
+            "type": "Individual",
+            "available": true,
+            "active": true,
+            "name_hotel": "Teleport Royal"
+        },
+        {
+            "id": "vggXJTVDydnj1hNvFS7Wyi",
+            "floor": "1",
+            "num_room": "01",
+            "capacity": "1",
+            "cost_base": "50000",
+            "tax": "0.19",
+            "type": "Individual",
+            "available": true,
+            "active": true,
+            "name_hotel": "Avani Royal"
+        },
+        {
+            "id": "gqThRPVDHNnpeTSQjC7Aoc",
+            "floor": "1",
+            "num_room": "02",
+            "capacity": "2",
+            "cost_base": "70000",
+            "tax": "0.19",
+            "type": "Doble",
+            "available": true,
+            "active": true,
+            "name_hotel": "Avani Royal"
+        },
+        {
+            "id": "22n9FGDg1wKvF9CJTFnPDo",
+            "floor": "2",
+            "num_room": "04",
+            "capacity": "6",
+            "cost_base": "150000",
+            "tax": "0.19",
+            "type": "Ejecutiva",
+            "available": true,
+            "active": true,
+            "name_hotel": "Avani Royal"
+        },
+        {
+            "id": "bLmVkyHHei5YhdxKuHgQM4",
+            "floor": "5",
+            "num_room": "07",
+            "capacity": "2",
+            "cost_base": "350000",
+            "tax": "0.19",
+            "type": "Suite",
+            "available": true,
+            "active": true,
+            "name_hotel": "Avani Royal"
+        },
+        {
+            "id": "gkdkBe7bf45g8PBs2LGt44",
+            "floor": "1",
+            "num_room": "01",
+            "capacity": "1",
+            "cost_base": "50000",
+            "tax": "0.19",
+            "type": "Individual",
+            "available": true,
+            "active": true,
+            "name_hotel": "Pavillon Royal"
+        },
+        {
+            "id": "cgjmuQxE3MfxRgJma2yG52",
+            "floor": "1",
+            "num_room": "02",
+            "capacity": "2",
+            "cost_base": "70000",
+            "tax": "0.19",
+            "type": "Doble",
+            "available": true,
+            "active": true,
+            "name_hotel": "Pavillon Royal"
+        },
+        {
+            "id": "ex7FiMxoekh4VxCDrHyKxZ",
+            "floor": "2",
+            "num_room": "04",
+            "capacity": "6",
+            "cost_base": "90000",
+            "tax": "0.19",
+            "type": "Familiar",
+            "available": true,
+            "active": true,
+            "name_hotel": "Pavillon Royal"
+        },
+        {
+            "id": "a5gXDGxgBnVCaYkDrmYZs2",
+            "floor": "5",
+            "num_room": "07",
+            "capacity": "2",
+            "cost_base": "250000",
+            "tax": "0.19",
+            "type": "Suite",
+            "available": true,
+            "active": true,
+            "name_hotel": "Pavillon Royal"
+        }
+    ],
+    "bookings": [
+        {
+            "id": "pDAU6GaHC8gC4ZENQRSSBp",
+            "type_document": "Cédula de Ciudadanía",
+            "num_document": "1102348567",
+            "name": "Juan Marcon",
+            "phone": "3142345476",
+            "email": "juan@gmail.com",
+            "start_date": "2024-4-21",
+            "end_date": "2024-3-21",
+            "emergency_name": "Luis Ardila",
+            "emergency_phone": "3156544567",
+            "id_room": "bpH4cUZf9v8QXBSjpBSTNq",
+            "cancelled": false
+        },
+        {
+            "id": "ikq5KRY1bGWYrAYnDjdSAm",
+            "type_document": "Cédula de Ciudadanía",
+            "num_document": "1097586985",
+            "name": "Laura Leon",
+            "phone": "3214589658",
+            "email": "laura@gmail.com",
+            "start_date": "2024-4-21",
+            "end_date": "2024-3-21",
+            "emergency_name": "Fabian Rey",
+            "emergency_phone": "3115487895",
+            "id_room": "kpLdkXt8uK2ZvpMvai1sCB",
+            "cancelled": false
+        }
+    ]
+}

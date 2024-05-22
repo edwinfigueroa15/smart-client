@@ -22,6 +22,7 @@ import { DialogDataHotel } from '@/app/core/interfaces/modal.interface';
 export default class TravelerComponent {
   allSubs: Subscription[] = [];
   isLoading = signal<boolean>(false);
+  activeSearch = signal<boolean>(false);
   listDepartment = [];
   listCities = [];
   listRoomsAvailable: IRoom[] = [];
@@ -63,6 +64,14 @@ export default class TravelerComponent {
     this.getDepartments();
   }
 
+  loadDataBase() {
+    this._apiService.loadDataBase();
+  }
+
+  deleteDataBase() {
+    this._apiService.deleteDataBase();
+  }
+
   ngOnDestroy() {
     this.allSubs.forEach(sub => sub.unsubscribe());
   }
@@ -94,12 +103,14 @@ export default class TravelerComponent {
 
   async searchRooms() {
     this.isLoading.update(() => true);
-    
+    this.activeSearch.update(() => false);
+
     const hotels: IHotel[] = await this._apiService.getAll('hotels', 'active');
     const filterHotels = hotels.filter(hotel => hotel.city == this.form.controls["city"].value);
     if(!filterHotels.length) {
       this.listRoomsAvailable = [];
       this.isLoading.update(() => false);
+      this.activeSearch.update(() => true);
       return;
     }
 
@@ -108,6 +119,7 @@ export default class TravelerComponent {
     if(!filterRooms.length) {
       this.listRoomsAvailable = [];
       this.isLoading.update(() => false);
+      this.activeSearch.update(() => true);
       return;
     }
 

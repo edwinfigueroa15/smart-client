@@ -14,9 +14,9 @@ import { IUser } from '@/app/core/interfaces/tables.interfaces';
 })
 export default class SignUpComponent {
   form = new FormGroup({
-    name: new FormControl('Test', [Validators.required]),
-    email: new FormControl('test@gmail.com', [Validators.required, Validators.email]),
-    password: new FormControl('123456', [Validators.required]),
+    name: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required]),
   })
 
   errors = {

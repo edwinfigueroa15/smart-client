@@ -2,7 +2,13 @@
     <app-spinner></app-spinner>
 }
 
+
+
 <section class="relative">
+    <div class="absolute top-0 left-0 h-11 z-50 w-full flex justify-end flex-row flex-wrap gap-2 p-1 bg-slate-900">
+        <button mat-flat-button (click)="deleteDataBase()">Eliminar Datos</button>
+        <button mat-flat-button (click)="loadDataBase()">Cargar Datos</button>
+    </div>
     <div class="relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen-75">
         <!-- Banner -->
         <div class="absolute top-0 w-full h-full bg-center bg-cover bg-img-banner">
@@ -91,7 +97,7 @@
             @for (room of listRoomsAvailable; track room.id) {
                 <mat-card class="card-container">
                     <mat-card-header>
-                        <mat-card-title>{{ room.name_hotel }}</mat-card-title>
+                        <mat-card-title>Hotel {{ room.name_hotel }}</mat-card-title>
                         <mat-card-subtitle>Tipo de habitación: {{ room.type }}</mat-card-subtitle>
                     </mat-card-header>
         
@@ -107,7 +113,9 @@
                     </mat-card-actions>
                 </mat-card>
             } @empty {
-                <div>No se encontrarton habitaciones con esos filtros</div>
+                @if(activeSearch()) {
+                    <div>No se encontrarton habitaciones con esos filtros</div>
+                }
             }
         </div>
     </section>

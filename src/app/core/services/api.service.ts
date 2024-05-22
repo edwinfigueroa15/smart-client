@@ -2,6 +2,8 @@
 import { Injectable, inject } from '@angular/core';
 import { UtilsService } from '@/app/shared/utils/utils.service';
 import short from 'short-uuid';
+import { HttpClient } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +11,25 @@ import short from 'short-uuid';
 export class ApiService {
 
   private _utilsService = inject(UtilsService);
+  private _http = inject(HttpClient);
   constructor() { }
+
+  async loadDataBase() {
+    const observer$ = this._http.get('assets/mocks/database.json');
+    const response: any = await firstValueFrom(observer$)
+    const keys = Object.keys(response);
+    keys.forEach(key => {
+      this._utilsService.saveLocalStorage(key, response[key])
+    })
+  }
+
+  deleteDataBase() {
+    localStorage.removeItem('users');
+    localStorage.removeItem('user_token');
+    localStorage.removeItem('hotels');
+    localStorage.removeItem('rooms');
+    localStorage.removeItem('bookings');
+  }
 
   async getAll(table: string, attrActive?: string) {
     const response: any[] = this._utilsService.getLocalStorage(table) || [];

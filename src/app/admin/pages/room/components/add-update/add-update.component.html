@@ -22,12 +22,12 @@
         </div>
 
         <div class="w-full grid sm:gap-4 grid-cols-1 sm:grid-cols-2">
-            <app-custom-input 
-                type="text"
+            <app-custom-select 
                 label="Tipo de habitación"
                 [control]="form.controls.type"
+                [list]="typeRoomsList"
                 [errors]="errors.type">
-            </app-custom-input>
+            </app-custom-select>
 
             <app-custom-input 
                 type="number"

@@ -20,6 +20,14 @@ export class AddUpdateComponent {
   isLoading = signal<boolean>(false);
   listHotel: any[] = [];
 
+  typeRoomsList = [
+    { id: '1', value: 'Individual', label: 'Individual' },
+    { id: '2', value: 'Doble', label: 'Doble' },
+    { id: '3', value: 'Triple', label: 'Triple' },
+    { id: '4', value: 'Ejecutiva', label: 'Ejecutiva' },
+    { id: '4', value: 'Suite', label: 'Suite' },
+  ]
+
   form = new FormGroup({
     id: new FormControl(''),
     floor: new FormControl(null, [Validators.required, Validators.minLength(1), Validators.maxLength(3)]),

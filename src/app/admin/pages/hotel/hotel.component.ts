@@ -2,7 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { TableComponent, SpinnerComponent } from '@/app/shared/components';
 import Modules from '@/app/shared/modules';
 import { MatTableDataSource } from '@angular/material/table';
-import { IHotel, IRoom, IUser } from '@/app/core/interfaces/tables.interfaces';
+import { IBooking, IHotel, IRoom, IUser } from '@/app/core/interfaces/tables.interfaces';
 import { ApiService } from '@/app/core/services/api.service';
 import { AuthService } from '@/app/core/services/auth.service';
 import { UtilsService } from '@/app/shared/utils/utils.service';
@@ -124,8 +124,17 @@ export default class HotelComponent {
 
         let rooms: IRoom[] = await this._apiService.getAll('rooms') || [];
         if(rooms.length) {
+          const roomsDelete = rooms.filter(room => room.name_hotel == event.name);
           rooms = rooms.filter(room => room.name_hotel != event.name);
           this._utilsService.saveLocalStorage('rooms', rooms);
+
+          let bookings: IBooking[] = await this._apiService.getAll('bookings') || [];
+          if(bookings.length) {
+            bookings = roomsDelete.reduce((acc: IBooking[], current: IRoom) => {
+              return acc = acc.filter((item: IBooking) => current.id != item.id_room);
+            }, [...bookings]);
+            this._utilsService.saveLocalStorage('bookings', bookings);
+          }
         }
         this.getHotels();
       }
