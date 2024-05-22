@@ -1,0 +1,31 @@
+<div class="w-full flex justify-start items-center pb-4">
+    <p class="text-lg m-0 p-0 font-bold" style="margin: 0px !important;">Lista de reservas</p>
+</div>
+
+@if(isLoading()) {
+    <app-spinner></app-spinner>
+}
+
+<app-custom-select 
+    label="Selecione el hotel para ver sus reservas"
+    [control]="selectForm.controls.hotel"
+    [list]="listHotels"
+    [errors]="{}"
+    (changeEvent)="changeSelectHotel($event)">
+</app-custom-select>
+
+@if(!isLoading() && dataSource.data.length) {
+    <app-table
+        [showActionsTable]="showActionsTable"
+        [keyHeaderColumns]="keyHeaderColumns"
+        [nameHeaderColumns]="nameHeaderColumns"
+        [dataSource]="dataSource"
+        showPaginator
+        (detailEvent)="detailItem($event)"
+    >
+    </app-table>
+} @else {
+    @if(!isLoading()) {
+        <div class="w-full text-center">No existen registros de reservas</div>
+    }
+}

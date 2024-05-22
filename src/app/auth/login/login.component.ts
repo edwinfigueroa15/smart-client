@@ -31,6 +31,6 @@ export default class LoginComponent {
   constructor() { }
 
   onSubmit() {
-    this.authService.login(this.form.value);
+    this.authService.login(this.form.value as any);
   }
 }

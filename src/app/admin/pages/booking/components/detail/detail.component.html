@@ -1,0 +1,45 @@
+@if(isLoading()) {
+    <app-spinner></app-spinner>
+}
+
+<h2 mat-dialog-title>Detalle de la reserva</h2>
+<mat-dialog-content>
+    <h2 style="margin: 0px !important;">Datos de la persona</h2>
+    <div class="w-full grid grid-cols-1 sm:grid-cols-2 mb-2 sm:mb-4">
+        <div><strong>Nombre:</strong> {{ data.info.name }}</div>
+        <div><strong>Celular:</strong> {{ data.info.phone }}</div>
+        <div><strong>Tipo de documento:</strong> {{ data.info.type_document }}</div>
+        <div><strong>Num. documento:</strong> {{ data.info.num_document }}</div>
+        <div><strong>Contacto de emergencia:</strong> {{ data.info.emergency_name }}</div>
+        <div><strong>Num. emergencia:</strong> {{ data.info.emergency_phone }}</div>
+        <div><strong>Correo:</strong> {{ data.info.email }}</div>
+        <div><strong>Cancelada:</strong> {{ data.info.cancelled ? 'Si' : 'No' }}</div>
+    </div>
+
+    <h2 style="margin: 0px !important;">Datos de la habitación</h2>
+    <div class="w-full grid grid-cols-1 sm:grid-cols-2 mb-2 sm:mb-4">
+        <div><strong>Entrada:</strong> {{ data.info.start_date | date:"shortDate" }}</div>
+        <div><strong>Salida:</strong> {{ data.info.start_date | date:"shortDate" }}</div>
+        <div><strong>Piso:</strong> {{ data.info.room.floor }}</div>
+        <div><strong>Num. habitación:</strong> {{ data.info.room.num_room }}</div>
+        <div><strong>Costo base:</strong> {{ data.info.room.cost_base | currency }}</div>
+        <div><strong>Impuesto:</strong> {{ data.info.room.tax }}%</div>
+        <div><strong>Capacidad de personas:</strong> {{ data.info.room.capacity }}</div>
+        <div><strong>Tipo de habitación:</strong> {{ data.info.room.type }}</div>
+        <div><strong>Costo total:</strong> {{ data.info.total_cost | currency }}</div>
+    </div>
+
+    <h2 style="margin: 0px !important;">Datos del hotel</h2>
+    <div class="w-full grid grid-cols-1 sm:grid-cols-2 mb-2 sm:mb-4">
+        <div><strong>Nombre:</strong> {{ data.info.hotel.name }}</div>
+        <div><strong>Descripción:</strong> {{ data.info.hotel.description }}</div>
+        <div><strong>Departamento:</strong> {{ data.info.hotel.department }}</div>
+        <div><strong>Ciudad:</strong> {{ data.info.hotel.city }}</div>
+        <div><strong>Dirección:</strong> {{ data.info.hotel.address }}</div>
+    </div>
+
+    <!-- <pre>{{ data | json }}</pre> -->
+</mat-dialog-content>
+<mat-dialog-actions class="w-full flex" style="justify-content: flex-end !important;">
+  <button mat-stroked-button mat-dialog-close color="primary">Close</button>
+</mat-dialog-actions>

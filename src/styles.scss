@@ -1,4 +1,58 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.icon-svg {
+    width: 1.5rem !important;
+    height: 1.5rem !important;
+}
+
+.active {
+    background: #dcdcdc82;
+    border-radius: 5px;
+}
+
+.min-h-content {
+    min-height: calc(100vh - 64px);
+}
+
+.snackbar-success {
+    background: #16a34a !important;
+    background-color: #16a34a !important;
+
+    .mdc-snackbar__surface {
+        background-color: transparent !important;
+    }
+}
+
+.snackbar-danger {
+    background: #ef4444 !important;
+    background-color: #ef4444 !important;
+
+    .mdc-snackbar__surface {
+        background-color: transparent !important;
+    }
+}
+
+.snackbar-warning {
+    background: #eab308 !important;
+    background-color: #eab308 !important;
+
+    .mdc-snackbar__surface {
+        background-color: transparent !important;
+    }
+}
+
+.info-color {
+    background-color: #17a2b8 !important;
+    color: #ffff !important;
+
+    &:hover {
+        background-color: #0b8fa4 !important;
+        color: #ffff !important;
+    }
+}
+
+.bg-img-banner {
+    background-image: url('https://www.abhotelesyturismo.com/wp-content/uploads/2021/11/Diseno-sin-titulo-9_compressed-1.jpg') !important;
+}

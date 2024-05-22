@@ -1,0 +1,77 @@
+@if(isLoading()) {
+    <app-spinner></app-spinner>
+}
+
+<h2 mat-dialog-title>Reserva en el hotel {{ data.info.room.name_hotel }}</h2>
+<div mat-dialog-content>
+    <div class="w-full grid grid-cols-1 sm:grid-cols-2 mb-2 sm:mb-4">
+        <div><strong>Entrada:</strong> {{ form.value.start_date | date:"shortDate" }}</div>
+        <div><strong>Salida:</strong> {{ form.value.start_date | date:"shortDate" }}</div>
+        <div><strong>Tipo de habitación:</strong> {{ data.info.room.type }}</div>
+        <div><strong>Costo total:</strong> {{ data.info.total_cost | currency }}</div>
+    </div>
+
+    <form [formGroup]="form" class="flex flex-col w-full" (keypress.enter)="onSubmit()">
+        <div class="w-full grid sm:gap-4 grid-cols-1 sm:grid-cols-2">
+            <app-custom-select 
+                label="Tipo de documento"
+                [control]="form.controls.type_document"
+                [list]="documentList"
+                [errors]="errors.type_document">
+            </app-custom-select>
+
+            <app-custom-input 
+                type="number"
+                label="Num. documento"
+                [control]="form.controls.num_document"
+                [errors]="errors.num_document">
+            </app-custom-input>
+        </div>
+
+        <div class="w-full grid sm:gap-4 grid-cols-1 sm:grid-cols-2">
+            <app-custom-input 
+                type="text"
+                label="Nombre"
+                [control]="form.controls.name"
+                [errors]="errors.name">
+            </app-custom-input>
+
+            <app-custom-input 
+                type="number"
+                label="Celular"
+                [control]="form.controls.phone"
+                [errors]="errors.phone">
+            </app-custom-input>
+        </div>
+
+        <app-custom-input 
+            type="email"
+            label="Correo"
+            [control]="form.controls.email"
+            [errors]="errors.email">
+        </app-custom-input>
+
+
+        <h2>Información de un conctacto de emergencia</h2>
+
+        <div class="w-full grid sm:gap-4 grid-cols-1 sm:grid-cols-2">
+            <app-custom-input 
+                type="text"
+                label="Nombre"
+                [control]="form.controls.emergency_name"
+                [errors]="errors.emergency_name">
+            </app-custom-input>
+
+            <app-custom-input 
+                type="number"
+                label="Celular"
+                [control]="form.controls.emergency_phone"
+                [errors]="errors.emergency_phone">
+            </app-custom-input>
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions class="w-full flex flex-wrap" style="justify-content: space-between !important;">
+    <button mat-button (click)="dialogRef.close(null)">Cancelar</button>
+    <button mat-button (click)="onSubmit()" [disabled]="form.invalid">Reservar</button>
+</div>

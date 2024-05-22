@@ -1,0 +1,79 @@
+@if(isLoading()) {
+    <app-spinner></app-spinner>
+}
+
+<h2 mat-dialog-title>{{ data.isEdit ? 'Modifique su habitación' : 'Agrega una habitación' }}</h2>
+<div mat-dialog-content>
+    <form [formGroup]="form" class="flex flex-col w-full" (keypress.enter)="onSubmit()">
+        <div class="w-full grid sm:gap-4 grid-cols-1 sm:grid-cols-2">
+            <app-custom-input 
+                type="number"
+                label="Num. piso"
+                [control]="form.controls.floor"
+                [errors]="errors.floor">
+            </app-custom-input>
+
+            <app-custom-input 
+                type="number"
+                label="Num. habitación"
+                [control]="form.controls.num_room"
+                [errors]="errors.num_room">
+            </app-custom-input>
+        </div>
+
+        <div class="w-full grid sm:gap-4 grid-cols-1 sm:grid-cols-2">
+            <app-custom-select 
+                label="Tipo de habitación"
+                [control]="form.controls.type"
+                [list]="typeRoomsList"
+                [errors]="errors.type">
+            </app-custom-select>
+
+            <app-custom-input 
+                type="number"
+                label="Capacidad de personas"
+                [control]="form.controls.capacity"
+                [errors]="errors.capacity">
+            </app-custom-input>
+        </div>
+
+        <div class="w-full grid sm:gap-4 grid-cols-1 sm:grid-cols-2">
+            <app-custom-input 
+                type="number"
+                label="Costo base"
+                [control]="form.controls.cost_base"
+                [errors]="errors.cost_base">
+            </app-custom-input>
+
+            <app-custom-input 
+                type="number"
+                label="Impuesto"
+                [control]="form.controls.tax"
+                [errors]="errors.tax">
+            </app-custom-input>
+        </div>
+
+        <app-custom-select 
+            label="Hotel"
+            [control]="form.controls.name_hotel"
+            [list]="data.listHotels"
+            [errors]="errors.name_hotel">
+        </app-custom-select>
+
+        <div class="w-full grid sm:gap-4 grid-cols-1 sm:grid-cols-2">
+            <app-custom-check
+                label="Habitación activa"
+                [control]="form.controls.active">
+            </app-custom-check>
+
+            <app-custom-check
+                label="Disponible"
+                [control]="form.controls.available">
+            </app-custom-check>
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions class="w-full flex flex-wrap" style="justify-content: space-between !important;">
+    <button mat-button (click)="dialogRef.close(null)">Cancelar</button>
+    <button mat-button (click)="onSubmit()" [disabled]="form.invalid">{{ data.isEdit ? 'Actualizar' : 'Agregar' }}</button>
+</div>

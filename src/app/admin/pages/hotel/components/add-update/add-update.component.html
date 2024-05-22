@@ -1,0 +1,61 @@
+@if(isLoading()) {
+    <app-spinner></app-spinner>
+}
+
+<h2 mat-dialog-title>{{ data.isEdit ? 'Modifique su hotel' : 'Agrega un hotel' }}</h2>
+<div mat-dialog-content>
+    <form [formGroup]="form" class="flex flex-col w-full" (keypress.enter)="onSubmit()">
+        <app-custom-input 
+            type="text"
+            label="Nombre"
+            [control]="form.controls.name"
+            [errors]="errors.name">
+        </app-custom-input>
+
+        <app-custom-input 
+            type="text"
+            label="Descripción"
+            [control]="form.controls.description"
+            [errors]="errors.description">
+        </app-custom-input>
+
+        <div class="w-full grid gap-4" [class.grid-cols-1]="!form.controls.department.value" [class.grid-cols-2]="form.controls.department.value">
+            <div>
+                <app-custom-select 
+                    label="Departamento"
+                    [control]="form.controls.department"
+                    [list]="listDepartment"
+                    [errors]="errors.department"
+                    (changeEvent)="changeDepartmentSelect($event)">
+                </app-custom-select>
+            </div>
+
+            @if(form.controls.department.value) {
+                <div>
+                    <app-custom-select 
+                        label="Ciudad"
+                        [control]="form.controls.city"
+                        [list]="listCities"
+                        [errors]="errors.city">
+                    </app-custom-select>
+                </div>
+            }
+        </div>
+
+        <app-custom-input 
+            type="text"
+            label="Dirección"
+            [control]="form.controls.address"
+            [errors]="errors.address">
+        </app-custom-input>
+
+        <app-custom-check
+            label="Hotel activo"
+            [control]="form.controls.active">
+        </app-custom-check>
+    </form>
+</div>
+<div mat-dialog-actions class="w-full flex flex-wrap" style="justify-content: space-between !important;">
+    <button mat-button (click)="dialogRef.close(null)">Cancelar</button>
+    <button mat-button (click)="onSubmit()" [disabled]="form.invalid">{{ data.isEdit ? 'Actualizar' : 'Agregar' }}</button>
+</div>

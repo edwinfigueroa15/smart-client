@@ -3,6 +3,7 @@ import Modules from '@/app/shared/modules';
 import { CustomInputComponent } from '@/app/shared/components';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '@/app/core/services/auth.service';
+import { IUser } from '@/app/core/interfaces/tables.interfaces';
 
 @Component({
   selector: 'app-sign-up',
@@ -35,6 +36,6 @@ export default class SignUpComponent {
   constructor() { }
 
   onSubmit() {
-    this.authService.signUp(this.form.value);
+    this.authService.signUp(this.form.value as IUser);
   }
 }

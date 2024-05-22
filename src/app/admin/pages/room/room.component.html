@@ -1,0 +1,37 @@
+<div class="w-full flex justify-between items-center pb-4">
+    <p class="text-lg m-0 p-0 font-bold" style="margin: 0px !important;">Lista de habitaciones</p>
+    <button  mat-flat-button class="info-color" (click)="addRoom()">
+        Nueva habitación
+        <mat-icon>add</mat-icon>
+    </button>
+</div>
+
+@if(isLoading()) {
+    <app-spinner></app-spinner>
+}
+
+<app-custom-select 
+    label="Selecione el hotel para ver las habitaciones"
+    [control]="selectForm.controls.hotel"
+    [list]="listHotels"
+    [errors]="{}"
+    (changeEvent)="changeSelectHotel($event)">
+</app-custom-select>
+
+@if(!isLoading() && dataSource.data.length && selectForm.controls.hotel.value) {
+    <app-table
+        [showActionsTable]="showActionsTable"
+        [keyHeaderColumns]="keyHeaderColumns"
+        [nameHeaderColumns]="nameHeaderColumns"
+        [dataSource]="dataSource"
+        showPaginator
+        (editEvent)="editItem($event)"
+        (changeStatusEvent)="changeStatusEvent($event)"
+        (deleteEvent)="deleteItem($event)"
+    >
+    </app-table>
+} @else {
+    @if(!isLoading()) {
+        <div class="w-full text-center">No existen registros de habitaciones</div>
+    }
+}

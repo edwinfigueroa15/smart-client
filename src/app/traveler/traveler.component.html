@@ -1,1 +1,122 @@
-<p>traveler works!</p>
+@if(isLoading()) {
+    <app-spinner></app-spinner>
+}
+
+
+
+<section class="relative">
+    <div class="absolute top-0 left-0 h-11 z-50 w-full flex justify-end flex-row flex-wrap gap-2 p-1 bg-slate-900">
+        <button mat-flat-button (click)="deleteDataBase()">Eliminar Datos</button>
+        <button mat-flat-button (click)="loadDataBase()">Cargar Datos</button>
+    </div>
+    <div class="relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen-75">
+        <!-- Banner -->
+        <div class="absolute top-0 w-full h-full bg-center bg-cover bg-img-banner">
+            <span id="blackOverlay" class="w-full h-full absolute opacity-75 bg-black"></span>
+        </div>
+
+        <div class="container relative mx-auto">
+            <div class="items-center flex flex-wrap">
+                <div class="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
+                    <div>
+                        <h1 class="text-white font-semibold text-5xl">
+                            Agenda tu estancia desde cualquier lugar
+                        </h1>
+                        <p class="mt-4 text-lg text-gray-200">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                            Error corrupti aliquam recusandae. Quas, repudiandae alias quam molestias non,
+                            labore inventore odio veniam earum reiciendis animi sed qui ipsa nisi incidunt.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Fin banner -->
+    </div>
+
+    <!-- Form -->
+    <section class="pb-6 -mt-28">
+        <div class="container mx-auto px-4">
+            <div class="w-full flex flex-wrap justify-center">
+                <div class="w-full lg:w-9/12 px-4 text-center">
+                    <!-- Card -->
+                    <div class="relative flex flex-col min-w-0 break-words w-full shadow-lg border-2 rounded-lg" style="background: #f5f5f5;">
+                        <div class="px-4 py-5 w-full">
+                            <div class="w-full grid gap-2 sm:gap-4 grid-cols-1 sm:grid-cols-2">
+                                <app-date-range-picker
+                                    label="Entrada y salida"
+                                    [controlGroup]="formDate"
+                                    [errors]="errors"
+                                ></app-date-range-picker>
+                    
+                                <app-custom-input 
+                                    type="number"
+                                    label="Capacidad de personas"
+                                    [control]="form.controls.capacity"
+                                    [errors]="errors.capacity">
+                                </app-custom-input>
+                            </div>
+                    
+                            <div class="w-full grid gap-4" [class.grid-cols-1]="!form.controls.department.value" [class.grid-cols-2]="form.controls.department.value">
+                                <div>
+                                    <app-custom-select 
+                                        label="Departamento"
+                                        [control]="form.controls.department"
+                                        [list]="listDepartment"
+                                        [errors]="errors.department"
+                                        (changeEvent)="changeDepartmentSelect($event)">
+                                    </app-custom-select>
+                                </div>
+                    
+                                @if(form.controls.department.value) {
+                                    <div>
+                                        <app-custom-select 
+                                            label="Ciudad"
+                                            [control]="form.controls.city"
+                                            [list]="listCities"
+                                            [errors]="errors.city">
+                                        </app-custom-select>
+                                    </div>
+                                }
+                            </div>
+                    
+                            <div class="w-full flex justify-end">
+                                <button mat-flat-button color="primary" [disabled]="form.invalid || formDate.invalid" (click)="searchRooms()">Buscar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Fin Card -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Fin Form -->
+
+    <section class="flex justify-center">
+        <div class="max-w-screen-xl my-8 flex flex-wrap flex-row justify-center gap-4">
+            @for (room of listRoomsAvailable; track room.id) {
+                <mat-card class="card-container">
+                    <mat-card-header>
+                        <mat-card-title>Hotel {{ room.name_hotel }}</mat-card-title>
+                        <mat-card-subtitle>Tipo de habitación: {{ room.type }}</mat-card-subtitle>
+                    </mat-card-header>
+        
+                    <mat-card-content class="mt-4">
+                        <p style="margin: 0 !important;">Esta en el piso: {{ room.floor }}</p>
+                        <p style="margin: 0 !important;">Capacidad maxíma de personas: {{ room.capacity }}</p>
+                        <p style="margin: 0 !important;">Costo base: {{ room.cost_base | currency }}</p>
+                        <p style="margin: 0 !important;">Impuesto: {{ room.tax }}%</p>
+                        <p style="margin: 0 !important;">Total valor: {{ totalCost(room.cost_base, room.tax) | currency }}</p>
+                    </mat-card-content>
+                    <mat-card-actions class="flex justify-end">
+                        <button mat-stroked-button color="primary" (click)="createBooking(room)">Reservar</button>
+                    </mat-card-actions>
+                </mat-card>
+            } @empty {
+                @if(activeSearch()) {
+                    <div>No se encontrarton habitaciones con esos filtros</div>
+                }
+            }
+        </div>
+    </section>
+</section>

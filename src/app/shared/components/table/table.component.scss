@@ -1,0 +1,31 @@
+.mat-mdc-table-sticky-border-elem-right {
+    right: -2px !important;
+    box-shadow: inset 1.5px 0px 0px #ebebeb !important;
+
+    mat-icon {        
+        &:hover {
+            background: #dcdcdcb0;
+            border-radius: 50%;
+        }
+    }
+}
+
+:host ::ng-deep mat-paginator {
+    .mat-mdc-paginator-range-label {
+        margin: 0px !important;
+    }
+
+    .mat-mdc-paginator-container {
+        justify-content: center !important;
+    }
+    
+    @media (min-width: 640px) {
+        .mat-mdc-paginator-range-label {
+            margin: 0 0 0 24px !important;
+        }
+
+        .mat-mdc-paginator-container {
+            justify-content: end !important;
+        }
+    }
+}

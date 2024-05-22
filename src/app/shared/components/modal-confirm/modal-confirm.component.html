@@ -1,0 +1,10 @@
+<div style="max-width: 350px !important;">
+  <h2 mat-dialog-title>{{ data.title }}</h2>
+  @if(data?.subtitle) {
+    <mat-dialog-content>{{ data.subtitle }}</mat-dialog-content>
+  }
+  <mat-dialog-actions>
+    <button mat-button mat-dialog-close (click)="OnCancel()">{{ data.labelBtnCancel }}</button>
+    <button mat-flat-button color="primary" mat-dialog-close cdkFocusInitial (click)="OnSuccess()">{{ data.labelBtnSuccess }}</button>
+  </mat-dialog-actions>
+</div>

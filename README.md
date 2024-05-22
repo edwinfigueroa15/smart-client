@@ -1,27 +1,35 @@
-# Client
+# IMPORTANTE
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.2.2.
+Al entrar a la aplicación existen dos opciones que son:
+* Cargar datos
+* Eliminar datos
 
-## Development server
+Estas son para cargar unos datos de prueba y eliminar todos los datos de prueba una vez termine ya que todo se almacena en el `LocalStorage`.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Para iniciar sesion como administrador debe ir a la url `http://localhost:4200/auth` y ya existen dos usuarios administradores con algunos datos cargados.
 
-## Code scaffolding
+Los usuarios ya existentes son:
+* uno@gmail.com y contraseña 12345678
+* dos@gmail.com y contraseña 12345678
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Y tambien esta la posibilidad que usted se registre en la pagina y haga todo como si fuera un nuevo usuario.
 
-## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Ejecutar en local
 
-## Running unit tests
+Si quiere descargar el codigo y ejecutarlo en su computadora debe cumplir con estos requisitos:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+* Tener la version de Angular 17
+* Tener la version de NodeJs mayor o igual a la 18.13.0
 
-## Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Si cumple con los requisitos solo es ejecutar  `npm i` en la raiz del proyecto y cuando termine ejecutar en la raiz del proyecto `ng serve` una vez que la consola termine puede ver el proyecto en la url `http://localhost:4200`.
 
-## Further help
+## Patrones de diseño
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+En este proyecto use los siguientes patrones de diseño
+* Singleton: Este lo trabaje en mis servicios.
+* Observador : Este lo use para estar escuchando cambiar en toda la aplicación y en un caso puntual que lo use fue para actualizar algunas propiedades del usuario cuando era necesario.
+* Inyección de Dependencias: Este la use para inyectar algunas clases en mis componentes y servicios.
+
+Tambien trabaje siguiendo los estandares SOLID

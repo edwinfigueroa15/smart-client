@@ -1,0 +1,29 @@
+<div class="w-full flex justify-between items-center pb-4">
+    <p class="text-lg m-0 p-0 font-bold" style="margin: 0px !important;">Lista de hoteles</p>
+    <button  mat-flat-button class="info-color" (click)="addHotel()">
+        Nuevo hotel
+        <mat-icon>add</mat-icon>
+    </button>
+</div>
+
+@if(isLoading()) {
+    <app-spinner></app-spinner>
+}
+
+@if(!isLoading() && dataSource.data.length) {
+    <app-table
+        [showActionsTable]="showActionsTable"
+        [keyHeaderColumns]="keyHeaderColumns"
+        [nameHeaderColumns]="nameHeaderColumns"
+        [dataSource]="dataSource"
+        showPaginator
+        (editEvent)="editItem($event)"
+        (changeStatusEvent)="changeStatusEvent($event)"
+        (deleteEvent)="deleteItem($event)"
+    >
+    </app-table>
+} @else {
+    @if(!isLoading()) {
+        <div class="w-full text-center">No existen registros de hoteles</div>
+    }
+}
