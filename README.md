@@ -1,3 +1,7 @@
+## Ejecutar en local
+
+Demo: https://prueba-smart.netlify.app
+
 # IMPORTANTE
 
 Al entrar a la aplicación existen dos opciones que son:
@@ -6,7 +10,7 @@ Al entrar a la aplicación existen dos opciones que son:
 
 Estas son para cargar unos datos de prueba y eliminar todos los datos de prueba una vez termine ya que todo se almacena en el `LocalStorage`.
 
-Para iniciar sesion como administrador debe ir a la url `http://localhost:4200/auth` y ya existen dos usuarios administradores con algunos datos cargados.
+Para iniciar sesion como administrador debe ir a la url `https://prueba-smart.netlify.app/auth` y si esta en local es `http://localhost:4200/auth` y ya existen dos usuarios administradores con algunos datos cargados.
 
 Los usuarios ya existentes son:
 * uno@gmail.com y contraseña 12345678
